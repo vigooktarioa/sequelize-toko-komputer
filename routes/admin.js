@@ -120,20 +120,6 @@ app.post("/auth", async (req, res) => {
     }
 })
 
-//endpoint menampilkan semua data admin, method: GET, function: findAll()
-app.get("/", auth, (req, res) => {
-    admin.findAll()
-        .then(result => {
-            res.json({
-                admin: result
-            })
-        })
-        .catch(error => {
-            res.json({
-                message: error.message
-            })
-        })
-})
 
 
 
