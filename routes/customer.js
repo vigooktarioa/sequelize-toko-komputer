@@ -112,7 +112,7 @@ app.post("/", upload.single("image"), (req, res) => {
 })
 
 app.put("/:id", upload.single("image"), (req, res) => {
-    let param = { customer_id: req.params.id }
+    let param = { id: req.params.id }
     let data = {
         name: req.body.name,
         phone: req.body.phone,
