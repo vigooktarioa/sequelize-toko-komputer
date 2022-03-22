@@ -14,6 +14,9 @@ app.use("/admin", admin)
 const customer = require('./routes/customer');
 app.use("/customer", customer)
 
+// endpoints product
+const product = require('./routes/product');
+app.use("/product", product)
 
 //run server
 app.listen(8080, () => {
