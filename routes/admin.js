@@ -17,6 +17,29 @@ const auth = require("../auth")
 const jwt = require("jsonwebtoken")
 const SECRET_KEY = "BelajarNodeJSItuMenyengankan"
 
+app.post("/auth", async (req, res) => {
+    let params = {
+        username: req.body.username,
+        password: md5(req.body.password)
+    }
+
+    let result = await admin.findOne({ where: params })
+    if (result) {
+        let payload = JSON.stringify(result)
+        // generate token
+        let token = jwt.sign(payload, SECRET_KEY)
+        res.json({
+            logged: true,
+            data: result,
+            token: token
+        })
+    } else {
+        res.json({
+            logged: false,
+            message: "Invalid username or password"
+        })
+    }
+})
 
 //endpoint menampilkan semua data admin, method: GET, function: findAll()
 app.get("/", (req, res) => {
@@ -95,32 +118,6 @@ app.delete("/:id", (req, res) => {
             })
         })
 })
-
-app.post("/auth", async (req, res) => {
-    let params = {
-        username: req.body.username,
-        password: md5(req.body.password)
-    }
-
-    let result = await admin.findOne({ where: params })
-    if (result) {
-        let payload = JSON.stringify(result)
-        // generate token
-        let token = jwt.sign(payload, SECRET_KEY)
-        res.json({
-            logged: true,
-            data: result,
-            token: token
-        })
-    } else {
-        res.json({
-            logged: false,
-            message: "Invalid username or password"
-        })
-    }
-})
-
-
 
 
 module.exports = app
